@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:Android="http://schemas.android.com/apk/distribution"
+    package="com.ocean.driver">
+    <!-- Required -->
+    <permission
+        android:name="com.ocean.driver.permission.JPUSH_MESSAGE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+    <!--允许程序访问CellID或WiFi热点来获取粗略的位置-->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <!--获取运营商信息，用于支持提供运营商信息相关的接口-->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!--用于访问GPS定位-->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!--这个权限用于获取wifi的获取权限，wifi信息会用来进行网络定位-->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <!--这个权限用于允许程序在手机屏幕关闭后后台进程仍然运行-->
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autafocus" />
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ida_driver"
+        android:label="@string/app_name"
+        android:name=".app.SophixStubApplication"
+        android:roundIcon="@drawable/ida_driver"
+        android:supportsRtl="true"
+        android:usesCleartextTraffic="true"
+        android:theme="@style/BaseTheme"
+       >
+        <meta-data android:name="com.amap.api.v2.apikey" android:value="d36e408e59e8f13bd78645cfc090e191">
+        </meta-data>
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.ocean.driver.fileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+        <service android:name="com.amap.api.location.APSService"/>
+        <activity
+            android:name="com.amap.api.navi.AmapRouteActivity"
+            android:theme="@android:style/Theme.NoTitleBar"
+            android:launchMode="singleInstance"
+            android:configChanges="orientation|keyboardHidden|screenSize|navigation" />
+        <activity android:name=".activity.PasswordLoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="io.github.xudaojie.qrcodelib.CaptureActivity"/>
+        <activity android:name=".activity.MapViewActivity"/>
+        <activity android:name=".activity.ForgetPasswordActivity"/>
+        <activity android:name=".activity.PhoneCodeLoginActivity"/>
+        <activity android:name=".activity.ClipImageActivity"/>
+        <activity android:name=".activity.MainActivity"   android:configChanges="orientation|screenSize|keyboardHidden"/>
+        <activity android:name=".activity.PersonalDataActivity"/>
+        <activity android:name=".activity.WebViewActivity"/>
+        <activity android:name=".activity.SettingActivity"/>
+        <activity android:name=".activity.SettingNewPasswordActivity"/>
+        <activity android:name=".activity.BindNewPhoneActivity"/>
+        <activity android:name=".activity.BindNewPhoneGetPhoneCodeActivity"/>
+        <activity android:name=".activity.BillOfLadingDetailsActivity"/>
+        <activity android:name=".activity.SettingLoadingActivity"/>
+        <activity android:name=".activity.QuotationActivity" android:screenOrientation="landscape"  android:configChanges="orientation|screenSize|keyboardHidden"/>
+        <activity android:name=".activity.OperaDetailsActivity"   android:configChanges="orientation|screenSize|keyboardHidden"/>
+        <activity android:name=".activity.OperaGoodsQutationActivity" android:configChanges="keyboard|keyboardHidden|orientation|screenSize"/>
+        <activity android:name=".activity.UpdateOnBoardStatusActivity"  android:theme="@style/MyDialogStyleBottom" />
+
+        <!-- User defined.  For test only  用户自定义接收消息器,3.0.7开始支持,目前新tag/alias接口设置结果会在该广播接收器对应的方法中回调-->
+        <!--since 3.3.0 接收JPush相关事件-->
+        <receiver android:name=".jpush.PushMessageReceiver"
+            android:enabled="true"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.RECEIVE_MESSAGE" />
+                <category android:name="com.ocean.driver" />
+            </intent-filter>
+        </receiver>
+        <!-- since 3.3.0 Required SDK 核心功能-->
+        <!-- 可配置android:process参数将PushService放在其他进程中 -->
+        <!--User defined.  For test only 继承自cn.jpush.android.service.JCommonService-->
+        <service android:name=".jpush.PushService"
+            android:process=":pushcore">
+            <intent-filter>
+                <action android:name="cn.jiguang.user.service.action" />
+            </intent-filter>
+        </service>
+        <meta-data android:name="JPUSH_CHANNEL" android:value="developer-default"/>
+        <meta-data android:name="JPUSH_APPKEY" android:value="7469e28dd7ff632f314ac673" /> <!--  </>值来自开发者平台取得的AppKey-->
+
+
+        <meta-data
+            android:name="com.taobao.android.hotfix.IDSECRET"
+            android:value="333341787-1" />
+        <meta-data
+            android:name="com.taobao.android.hotfix.APPSECRET"
+            android:value="de08f6d3bb9a4949903d9e5645f07e3d" />
+        <meta-data
+            android:name="com.taobao.android.hotfix.RSASECRET"
+            android:value="MIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQCx/wipIW3EsErQCd5WJWLXsQanqCuKV5rN3tCCQX8xGtZDb6RR33tkMJf7HLNun1BR0CqkYK7xwyGWFEt/CC/FFZjGzuwCK4eo26aReuEf0S14PsjR0U5p3HL5osU8CrAKa+w1VgF58EJIsqxfh/lJMCxgp0SuK8UBPjS4MP3CB5DF5M9PiqzhrfwD14SqJdrxlPZJjE9Zs4XuRMoWfZlnNngn69V6R9ojaTDfwl3oDRtwDmuWt7AI4qXLnspx0PbWDqlXRE5DigBodj6Mln/WekKjbzFwwNTtj8MQqMdi4oXFWxwOc2Vnc5Jkkf7YNJzXCSdAskrUsDpqwaQwAP2hAgMBAAECggEAQJgDpZT7B8DONXcPV4XTu+CDQL53pomqJQGx+0MXjFNn5CsUn52RYsd7r+Y3e3KXLEl14BcyBYxBmPwedagb5dKzkZov7Y2semvTo8HLBsfbT2LBb9scMLCOjOcz2lkqj22g164xdPXqqAUnJrfqkFPKFv08oFRD9vKDIUCuJgYLhI3Qh3COoO6yCs3kZLcmrFkj8CAaAHqo65Jq3VpjUW552OAfBu9p/KRk0sgpETPlj7aPR6UvcNl3uCly8O2lFPAUPMMSgVgp+1U0ejqNxFkyaBVjS5gaHGZxbYJ0FfqRHmBMS/uFAPpn53YV3GiRP3bSisCETxmrGfdhdD8NUQKBgQDk9r3jfupkNgCU7/VRelltOQBuHVDZjEYaG2bmfVkuiYODj/N+0oe7EVhAKgGLWXTp72b65C439vPiTwDp2Yuk1qfM6WQZSVURho9WQA8BumySHjNKKCek2SbleXM2jJ+C1JYPltAFM2dLP/rFE4WcoYBAgVDPQA75F7AAoNbY9QKBgQDHA5y16rpU/Xgsy8l+lPlleG3HSjsoS6OMizJLqr0Y8XbFXkPAh38u3FmJ02tAGSYkAjrMoWVNFAscHxjrXZGEu5vDoXQZ7wmM/UXWTABiD0bp3jNaTstO4YAxaQ31aTns9gdhQ1aCochN9/7hIdzkM2ydD9dLQR+DvgPFNiQWfQKBgQCeYo0SzR2pOq4GWUPTHBa2doL0qTTfeKiZsLDq6nUBu0CNhsvCxDH+Vs48fJJa6gP1O5V6ItRSBHPK7inMmp995LtpBV4oG9FL8VBAMsnuwR4PqfKC7uoVn93HSc9IQdip8RLpL8MwhdGDfXukTo/TvOhyNsJGy6JP73HhzWEx7QKBgQCDcsBUa/is4Eo7FFM/V3iu6+9efYo7YFJjJyGOVvTVf8+aJ1wK07ROqF4/qbQiPzow+IQL2uKFGaMI7QVRmJjgGeaVPZPo+TjOtg8lr0dlfX+yQwCaOocQz+MTP7dnjBwlho9zT73ZRLB/xzjDTNGQrOKljuv+GcKOCriEzvDhJQKBgQCuz5igX6cX7sQzvgpFN8OQaMn4HagoABzLFufxh68YX8GXuuv8zQyEs/zEbTlXMIWKe6eGDuPMKasihLESxrOtamcuiDR4FMLtCNBnx6gwHFciUAEkq9X8zmnFDek11UK4uft6CnQ1PxNXqA6bqjccgtFV1JTNjLsp9223Yw5/Tg==" />
+    </application>
+
+</manifest>

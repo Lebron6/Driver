@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="315dp"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:paddingTop="10dp"
+    android:background="@drawable/item_bg_bill"
+    android:layout_height="243dp">
+<LinearLayout
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <ImageView
+        android:background="@mipmap/icon_reject"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_marginLeft="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="驳回原因"
+        android:textColor="#ff2b2c44"
+        android:textSize="18sp"
+        />
+
+</LinearLayout>
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_marginTop="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2020/06/07  12:45"
+        android:textColor="#ff585974"
+        android:textSize="16sp"
+        />
+    <TextView
+        android:id="@+id/tv_content"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="驳回原因驳回原因驳回原因驳回原因驳回原因驳回原因驳回原因驳回原因驳回原因驳回原因驳回原因驳回原因驳回原因驳回原因驳回原因"
+        android:textColor="#ff9c9db3"
+        android:textSize="16sp"
+        />
+
+    <TextView
+        android:id="@+id/tv_close"
+        android:layout_marginTop="15dp"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="关闭"
+        android:textColor="#ff3d68eb"
+        android:textSize="16sp"
+        />
+</LinearLayout>
